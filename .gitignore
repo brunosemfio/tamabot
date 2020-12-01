@@ -62,4 +62,5 @@ crashlytics-build.properties
 .idea
 
 #Credential
-Assets/Settings/Twitch/
+Assets/Settings/Twitch Config.asset
+Assets/Settings/Twitch Config.asset.meta
