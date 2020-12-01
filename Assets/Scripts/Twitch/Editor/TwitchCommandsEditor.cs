@@ -52,18 +52,14 @@ namespace Twitch.Editor
             var rects = new Rect[weights.Length];
 
             var previousWidth = 0f;
-            
-            var previousSpacing = 0f;
 
             for (var i = 0; i < rects.Length; i++)
             {
                 var width = (rect.width - totalSpacing) * weights[i] / totalWeight;
 
-                rects[i] = new Rect(rect.x + previousWidth + previousSpacing, rect.y, width, EditorGUIUtility.singleLineHeight);
+                rects[i] = new Rect(rect.x + previousWidth + spacing * i, rect.y, width, EditorGUIUtility.singleLineHeight);
 
-                previousWidth = width;
-
-                previousSpacing = spacing;
+                previousWidth += width;
             }
 
             return rects;
