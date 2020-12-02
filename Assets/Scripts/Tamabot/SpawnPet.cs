@@ -12,6 +12,8 @@ namespace Tamabot
         
         [SerializeField] private ConfigPreset multiplyForce;
 
+        [SerializeField] private int initialAmount = 1;
+
         #endregion
 
         public static SpawnPet Instance { get; private set; }
@@ -24,7 +26,10 @@ namespace Tamabot
 
         private void Start()
         {
-            pool.Get();
+            for (var i = 0; i < initialAmount; i++)
+            {
+                pool.Get();
+            }
         }
 
         public void Multiply(Vector3 position)

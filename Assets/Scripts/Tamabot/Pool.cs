@@ -41,7 +41,7 @@ namespace Tamabot
                     
                 return item;
             }
-            
+
             var newItem = Create();
             newItem.SetActive(true);
 

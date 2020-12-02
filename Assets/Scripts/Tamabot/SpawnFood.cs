@@ -15,7 +15,7 @@ namespace Tamabot
 
         [SerializeField] private Pool pool;
 
-        [SerializeField] private float margin;
+        [SerializeField] private float margin = 2f;
 
         #endregion
 

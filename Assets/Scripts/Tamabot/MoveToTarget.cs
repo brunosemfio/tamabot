@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using NUnit.Framework.Constraints;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Tamabot
 {
@@ -38,10 +35,18 @@ namespace Tamabot
             _stats = GetComponent<StatsManager>();
         }
 
+        private void OnEnable()
+        {
+            InvokeRepeating(nameof(FindTarget), 0f, Random.Range(3f, 4f));
+        }
+
+        private void OnDisable()
+        {
+            CancelInvoke(nameof(FindTarget));
+        }
+
         private void FixedUpdate()
         {
-            FindTarget();
-
             Move();
         }
 
@@ -66,7 +71,7 @@ namespace Tamabot
 
         private void FindTarget()
         {
-            _target = Target.Closest(transform.position);
+            _target = Target.Rand();
         }
 
         private bool WallJump(Vector2 normal)
