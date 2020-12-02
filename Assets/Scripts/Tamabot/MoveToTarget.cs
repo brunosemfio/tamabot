@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using NUnit.Framework.Constraints;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Tamabot
 {
@@ -35,14 +38,9 @@ namespace Tamabot
             _stats = GetComponent<StatsManager>();
         }
 
-        private void OnEnable()
+        private void Start()
         {
-            InvokeRepeating(nameof(FindTarget), 0f, Random.Range(3f, 4f));
-        }
-
-        private void OnDisable()
-        {
-            CancelInvoke(nameof(FindTarget));
+            InvokeRepeating(nameof(FindTarget), 0f, Random.Range(2f, 3f));
         }
 
         private void FixedUpdate()

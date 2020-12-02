@@ -567,7 +567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 4806368015402132545, guid: ef87c8fc97506a2479a2e557fd796d09, type: 3}
-  amount: 5
+  amount: 0
 --- !u!1 &1439641860
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,7 +599,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pool: {fileID: 1787480337}
-  margin: 2
+  margin: {fileID: 11400000, guid: 28ed9fce69b99d24cb8d1bb88235a927, type: 2}
+  rain: 0
 --- !u!4 &1439641862
 Transform:
   m_ObjectHideFlags: 0
@@ -672,7 +673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 4436536976113878181, guid: e3ffeee81206c5c4fab3fff82631b76e, type: 3}
-  amount: 5
+  amount: 0
 --- !u!4 &1636931357
 Transform:
   m_ObjectHideFlags: 0
@@ -764,4 +765,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 988093821153975588, guid: a6a7c9ff525993745978e8b8f40835f8, type: 3}
-  amount: 10
+  amount: 0
