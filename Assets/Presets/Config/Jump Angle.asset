@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ee0f938118c4599a7df04cde0ca0e62, type: 3}
   m_Name: Jump Angle
   m_EditorClassIdentifier: 
-  value: 45
+  value: 15

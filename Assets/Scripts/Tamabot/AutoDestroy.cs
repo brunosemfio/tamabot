@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Tamabot
 {
@@ -24,6 +25,11 @@ namespace Tamabot
         private void OnEnable()
         {
             if (lifeTime.value > 0) Invoke(nameof(Disable), lifeTime.value);
+        }
+
+        private void OnDisable()
+        {
+            CancelInvoke(nameof(Disable));
         }
 
         private void FixedUpdate()

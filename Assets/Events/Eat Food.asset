@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ee0f938118c4599a7df04cde0ca0e62, type: 3}
-  m_Name: Jump Force
+  m_Script: {fileID: 11500000, guid: ef8ab396b9474ef499a4004911e58220, type: 3}
+  m_Name: Eat Food
   m_EditorClassIdentifier: 
-  value: 5

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Tamabot
@@ -8,6 +9,12 @@ namespace Tamabot
         #region Private
 
         private static readonly List<Target> All = new List<Target>();
+
+        #endregion
+
+        #region Inspector
+
+        [SerializeField] private bool priority;
 
         #endregion
 
@@ -21,24 +28,23 @@ namespace Tamabot
             All.Remove(this);
         }
 
-        public static Target Closest(MoveToTarget pet)
+        public static Target Closest(Vector3 position)
         {
             var closest = float.MaxValue;
 
             Target target = null;
 
-            for (var i = All.Count - 1; i >= 0; i--)
+            var priorities = All.Where(t => t.priority);
+            
+            foreach (var priority in priorities)
             {
-                var item = All[i];
+                var distance = Vector2.Distance(priority.transform.position, position);
 
-                var distance = Vector2.Distance(item.transform.position, pet.transform.position);
+                if (distance > closest) continue;
+                
+                closest = distance;
 
-                if (distance < closest)
-                {
-                    closest = distance;
-
-                    target = item;
-                }
+                target = priority;
             }
 
             return target;

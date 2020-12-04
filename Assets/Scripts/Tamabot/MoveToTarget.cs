@@ -6,18 +6,27 @@ using Random = UnityEngine.Random;
 namespace Tamabot
 {
     [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(StatsManager))]
     public class MoveToTarget : MonoBehaviour
     {
+        #region Animation
+
+        private static readonly int Jump = Animator.StringToHash("Jump");
+
+        #endregion
+        
         #region Private
 
         private Rigidbody2D _rb;
 
+        private Animator _animator;
+
         private StatsManager _stats;
 
-        private bool _grounded;
-
         private Target _target;
+        
+        private bool _grounded;
 
         #endregion
 
@@ -34,6 +43,8 @@ namespace Tamabot
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+            
+            _animator = GetComponent<Animator>();
 
             _stats = GetComponent<StatsManager>();
         }
@@ -55,6 +66,8 @@ namespace Tamabot
                 if (!WallJump(other.GetContact(0).normal))
                 {
                     _grounded = true;
+                    
+                    _animator.SetTrigger(Jump);
                 }
             }
         }
@@ -69,7 +82,8 @@ namespace Tamabot
 
         private void FindTarget()
         {
-            _target = Target.Rand();
+            _target = Target.Closest(transform.position);
+            if (_target == null) _target = Target.Rand();
         }
 
         private bool WallJump(Vector2 normal)
@@ -90,19 +104,13 @@ namespace Tamabot
 
             _rb.velocity = Vector2.zero;
 
-            if (_target != null)
-            {
-                var direction = _target.transform.position - transform.position;
+            if (_target == null) return;
+            
+            var direction = (_target.transform.position - transform.position).normalized;
 
-                if (direction.y <= 0f)
-                {
-                    direction.Normalize();
+            var rotation = Quaternion.Euler(0, 0, -jumpAngle.value * direction.x) * Vector2.up;
 
-                    var rotation = Quaternion.Euler(0, 0, -jumpAngle.value * direction.x) * Vector2.up;
-
-                    _rb.AddForce(rotation * jumpForce.value / Mathf.Sqrt(_stats.Size), ForceMode2D.Impulse);
-                }
-            }
+            _rb.AddForce(rotation * jumpForce.value, ForceMode2D.Impulse);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Events;
 using UnityEngine;
 
 namespace Tamabot
@@ -10,7 +11,13 @@ namespace Tamabot
 
         private StatsManager _stats;
 
+        #endregion
+
+        #region Inspector
+
         [SerializeField] private ConfigPreset overweight;
+        
+        [SerializeField] private ParticleSystem eatEffect;
 
         #endregion
 
@@ -19,29 +26,29 @@ namespace Tamabot
             _stats = GetComponent<StatsManager>();
         }
 
-        private void FixedUpdate()
+        private void Start()
         {
-            Grow();
+            InvokeRepeating(nameof(Grow), 0f, .1f);
         }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.TryGetComponent(out Eatable food))
-            {
-                Eat(food);
-            }
+            if (!other.gameObject.TryGetComponent(out Eatable food)) return;
+            
+            Eat(food);
+            
+            eatEffect.Emit(1);
         }
 
         private void Grow()
         {
             transform.DOScale(Vector3.one * Mathf.Sqrt(_stats.Size), 1f);
-            
-            if (_stats.Size > overweight.value)
-            {
-                SpawnPet.Instance.Multiply(transform.position);
 
-                gameObject.SetActive(false);
-            }
+            if (_stats.Size <= overweight.value) return;
+
+            SpawnPet.Instance.Multiply(transform.position);
+
+            gameObject.SetActive(false);
         }
 
         private void Eat(Eatable food)
