@@ -16,8 +16,8 @@ namespace Tamabot
         #region Inspector
 
         [SerializeField] private ConfigPreset overweight;
-        
-        [SerializeField] private ParticleSystem eatEffect;
+
+        [SerializeField] private React eatReact;
 
         #endregion
 
@@ -36,8 +36,6 @@ namespace Tamabot
             if (!other.gameObject.TryGetComponent(out Eatable food)) return;
             
             Eat(food);
-            
-            eatEffect.Emit(1);
         }
 
         private void Grow()
@@ -56,6 +54,8 @@ namespace Tamabot
             _stats.DecreaseHunger(food.RecoveryAmount);
 
             food.gameObject.SetActive(false);
+            
+            eatReact.Play();
         }
     }
 }
